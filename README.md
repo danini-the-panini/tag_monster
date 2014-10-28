@@ -1,13 +1,13 @@
-# TagRemover
+# Tag Monster!
 
-Tag remover let's you remove all elements of specified tags from extremely large XML documents without parsing or loading the whole thing in memory, useful for processing unreasonably large documents without making your server fall over.
+Tag monster helps you extract information from enormous XML files without eating up all your memory and knocking your server over. It does this by going through the file one tag at a time without loading the whole thing in memory, so you can data mine the crap out of those massive XML files you got from who-knows-where.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'tag_remover'
+gem 'tag_monster'
 ```
 
 And then execute:
@@ -16,29 +16,74 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install tag_remover
+    $ gem install tag_monster
 
 ## Usage
 
-The following line will read XML from `input_stream`, and write it out to `output_stream` with all `div` and `img` elements removed.
+Given this XML:
 
-```ruby
-TagRemover.process input_stream, output_stream, remove_tags: ['div', 'img']
+```xml
+<root>
+  <entity id="1">
+    <name>Foo</name>
+    <product>
+      <price>100</price>
+      <units>
+        <unit>Bob</unit>
+        <unit>Larry</unit>
+      </units>
+    </product>
+  </entity>
+  <entity id="2">
+    <name>Bar</name>
+    <product>
+      <price>250</price>
+      <units>
+        <unit>Sally</unit>
+      </units>
+    </product>
+  </entity>
+  ...
+</root>
 ```
 
-Options include:
+And this ruby:
 
-  * `remove_tags`: List of tags to remove from the XML file.
-  * `close_streams`: (`true`|`false`) If set, TagRemover will close `input_stream` and `output_stream` once the proccess is over.
-  * [NOT IMPLEMENTED] `format`: (`true`|`false`) If set, then the contents of `output_stream` will be formatted.
+```ruby
+doc = TagMonster::Document.new input_stream
 
-TagRemover can be used from the command line with the `rmtags` command. The following is an example that reads input.xml and writes the output to output.xml, removing all `div` and `img` elements:
+doc.each_element '/root/entity' do |element|
 
-    $ rmtags input.xml output.xml div img
+  id = element.attributes['id']
+
+  data = element.extract name: '/name', price: '/product/price', units: '/product/units/unit'
+
+  name = data[:name][0]
+  price = data[:price][0]
+  units = data[:units]
+
+end
+```
+
+You'll get the following values:
+
+```ruby
+id = "1"
+name = "Foo"
+price = "100"
+units = ["Bob","Larry"]
+
+id = "2"
+name = "Bar"
+price = "250"
+units = ["Sally"]
+
+...
+```
 
 ## Limitations
 
-Tag remover currently only works correctly if the XML is formatted with only one tag per line.
+Currently can only be used for simple XML processing.
 
 ## Contributing
 

@@ -1,6 +1,6 @@
-require "tag_remover/version"
+require "tag_monster/version"
 
-module TagRemover
+module TagMonster
 
   class Worker
     def initialize input, output, opts

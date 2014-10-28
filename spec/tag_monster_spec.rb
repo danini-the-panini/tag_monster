@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TagRemover do
+describe TagMonster do
   describe ".process" do
     it "removes elements" do
       input = """
@@ -15,7 +15,7 @@ describe TagRemover do
       output = StringIO.new
       tags_to_remove = ['remove']
 
-      TagRemover.process input, output, remove_tags: tags_to_remove
+      TagMonster.process input, output, remove_tags: tags_to_remove
 
       expect(output.string).to eq """<root>
 </root>
@@ -33,7 +33,7 @@ describe TagRemover do
       output = StringIO.new
       tags_to_remove = ['remove']
 
-      TagRemover.process input, output, remove_tags: tags_to_remove
+      TagMonster.process input, output, remove_tags: tags_to_remove
 
       expect(output.string).to eq """<root>
 </root>
@@ -50,7 +50,7 @@ describe TagRemover do
       output = StringIO.new
       tags_to_remove = ['remove']
 
-      TagRemover.process input, output, remove_tags: tags_to_remove
+      TagMonster.process input, output, remove_tags: tags_to_remove
 
       expect(output.string).to eq """<root>
 </root>
@@ -69,7 +69,7 @@ describe TagRemover do
       output = StringIO.new
       tags_to_remove = ['remove']
 
-      TagRemover.process input, output, remove_tags: tags_to_remove
+      TagMonster.process input, output, remove_tags: tags_to_remove
 
       expect(output.string).to eq """<root>
 <keep>
@@ -90,7 +90,7 @@ Happy Stuff :)
 
       output = StringIO.new
 
-      TagRemover.process input, output, remove_tags: tags_to_remove
+      TagMonster.process input, output, remove_tags: tags_to_remove
 
       expect(output.string).to eq input.string
     end
@@ -101,7 +101,7 @@ Happy Stuff :)
 """
       output = StringIO.new
 
-      TagRemover.process input, output
+      TagMonster.process input, output
 
       expect(output.string).to eq input.string
     end
@@ -117,7 +117,7 @@ Happy Stuff :)
       tags_to_remove = ['remove']
       output = StringIO.new
 
-      TagRemover.process input, output, remove_tags: tags_to_remove
+      TagMonster.process input, output, remove_tags: tags_to_remove
 
       expect(output.string).to eq """<root>
 </root>
@@ -128,7 +128,7 @@ Happy Stuff :)
       input = StringIO.new "<root></root>"
       output = StringIO.new
 
-      TagRemover.process input, output, close_streams: true
+      TagMonster.process input, output, close_streams: true
 
       expect(input).to be_closed
       expect(output).to be_closed

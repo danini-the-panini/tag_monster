@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'tag_remover'
+require 'tag_monster'
 
 if ARGV.length < 3
   puts "Usage: rmtags INPUT_FILE OUTPUT_FILE TAG [TAG, TAG, ...]"
@@ -15,6 +15,6 @@ tags_to_remove = ARGV[2..-1]
 input_file = File.open input_filename, 'r'
 output_file = File.open output_filename, 'w'
 
-TagRemover.process input_file, output_file,
+TagMonster.process input_file, output_file,
   remove_tags: tags_to_remove, close_streams: true
 

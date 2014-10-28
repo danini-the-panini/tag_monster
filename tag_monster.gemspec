@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'tag_remover/version'
+require 'tag_monster/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "tag_remover"
-  spec.version       = TagRemover::VERSION
+  spec.name          = "tag_monster"
+  spec.version       = TagMonster::VERSION
   spec.authors       = ["Daniel Smith"]
   spec.email         = ["jellymann@gmail.com"]
-  spec.summary       = %q{Remove elements from large XML documents.}
-  spec.description   = %q{Tag remover let's you remove all elements of specified tags from extremely large XML documents without parsing or loading the whole thing in memory, useful for processing unreasonably large documents without making your server fall over.}
-  spec.homepage      = "https://github.com/jellymann/tag_remover"
+  spec.summary       = %q{EAT ALL THE TAGS!}
+  spec.description   = %q{Tag monster helps you extract information from enormous XML files without eating up all your memory and knocking your server over.}
+  spec.homepage      = "https://github.com/jellymann/tag_monster"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

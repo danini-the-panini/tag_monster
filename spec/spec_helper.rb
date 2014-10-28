@@ -1,3 +1,3 @@
-require 'tag_remover'
+require 'tag_monster'
 
 
